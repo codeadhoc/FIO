@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package http;
+option go_package = ".;http";
+
+message Message {
+  string URL = 1;
+
+  enum Method {
+    NIL = 0;
+    GET = 1;
+    POST = 2;
+    PUT = 3;
+    PATCH = 4;
+  }
+
+  enum Authentication {
+    NONE = 0;
+    BASIC = 1;
+    MUTUAL = 2;
+  }
+
+  Method method = 3;
+  map<string,string> headers = 4;
+  string payload = 5;
+  uint32 statusCode = 6;
+  string Id = 7;
+  uint32 activeDeadLineSeconds = 8;
+  Authentication authentication = 9;
+  BasicAuthCredentials basicAuthcredentials = 10;
+  MutualAuthCredentials mutualAuthCredentials = 11;
+
+  message BasicAuthCredentials {
+    string UserName = 1;
+    string Password = 2; 
+    string ServerCertificate = 3; 
+  }
+
+  message MutualAuthCredentials {
+    string ClientCertificate = 1;
+    string ClientKey = 2; 
+    string CACertificate = 3; 
+  }
+}
+
+message Request {
+  string api = 1;
+  repeated Message messages = 2;
+  string Id = 3;
+}
+
+message Response {
+  Message message = 1;
+  repeated Error errors = 2;
+  string Id = 3;
+}
+
+enum ErrorCode {
+    InternalError = 0;
+	  RequestError = 1;
+	  ResponseError = 2;
+	  ConnectionError = 3;
+	  ConcurrencyContextError = 4;
+    RequestAborted = 5;
+}
+
+message Error {
+  ErrorCode code = 1;
+  string message = 2; 
+}
+
+service HTTPForkJoinService {
+  rpc FanoutFanin(Request) returns (stream Response);
+}
