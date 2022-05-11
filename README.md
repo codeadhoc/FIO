@@ -1,4 +1,4 @@
-# forkjoin
+# FIO
 Go routines library to implement fan-in and fan-out pattern in Go Lang
 
 ## FIO Design
