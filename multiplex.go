@@ -1,4 +1,4 @@
-package forkjoin
+package FIOjoin
 
 import (
 	"context"

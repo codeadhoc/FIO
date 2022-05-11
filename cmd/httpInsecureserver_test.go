@@ -24,7 +24,7 @@ const (
 //run httpfjserver.go
 //TODO: Create mock GRPC tests
 
-func TestHTTPForkJoin(t *testing.T) {
+func TestHTTPFIO(t *testing.T) {
 	conn := makeGrpcConn()
 	defer conn.Close()
 	c := h.NewHTTPForkJoinServiceClient(conn)

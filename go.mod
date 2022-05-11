@@ -1,4 +1,4 @@
-module github.com/kubesure/forkjoin
+module github.com/codeadhoc/FIO
 
 go 1.18
 
