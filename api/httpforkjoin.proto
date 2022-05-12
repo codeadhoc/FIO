@@ -69,6 +69,6 @@ message Error {
   string message = 2; 
 }
 
-service HTTPForkJoinService {
+service HTTPFIOService {
   rpc FanoutFanin(Request) returns (stream Response);
 }
